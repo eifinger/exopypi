@@ -1,0 +1,98 @@
+[project]
+name = "exopypi"
+version = "0.1.0"
+description = "PEP691 compliant python package repository with mirroring and pluggable storage backends."
+authors = [
+    { name = "Kevin Stillhammer", email = "kevin.stillhammer@gmail.com" }
+]
+dependencies = [
+    "fastapi>=0.111.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.2.2",
+    "pytest-cov>=5.0.0",
+    "pytest-asyncio>=0.23.7",
+    "pre-commit-hooks>=4.6.0",
+    "codespell>=2.3.0",
+    "mypy>=1.10.0",
+    "yamllint>=1.35.1",
+    "pre-commit>=3.5.0",
+]
+
+[tool.rye.scripts]
+dev = { cmd = "fastapi dev src/exopypi/main.py" }
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mypypi"]
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report term-missing --cov=src/exopypi --asyncio-mode=auto"
+
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+
+[tool.ruff.lint]
+# Based on https://github.com/home-assistant/core/blob/dev/pyproject.toml
+select = [
+    "B007", # Loop control variable {name} not used within loop body
+    "B014", # Exception handler with duplicate exception
+    "C",  # complexity
+    "D",  # docstrings
+    "E",  # pycodestyle
+    "F",  # pyflakes/autoflake
+    "G", # flake8-logging-format
+    "I",  # isort
+    "ICN001", # import concentions; {name} should be imported as {asname}
+    "LOG", # flake8-loggings
+    "PGH004",  # Use specific rule codes when using noqa
+    "PLC0414", # Useless import alias. Import alias does not rename original package.
+    "S101", # Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+    "SIM117", # Merge with-statements that use the same scope
+    "SIM118", # Use {key} in {dict} instead of {key} in {dict}.keys()
+    "SIM201", # Use {left} != {right} instead of not {left} == {right}
+    "SIM212", # Use {a} if {a} else {b} instead of {b} if not {a} else {a}
+    "SIM300", # Yoda conditions. Use 'age == 42' instead of '42 == age'.
+    "SIM401", # Use get from dict with default instead of an if block
+    "T20",  # flake8-print
+    "TRY004", # Prefer TypeError exception for invalid type
+    "RUF", # Ruff
+    "UP",  # pyupgrade
+    "W",  # pycodestyle
+]
+
+ignore = [
+    "D100",  # Missing docstring in public module
+    "D101",  # Missing docstring in public class
+    "D102",  # Missing docstring in public method
+    "D103",  # Missing docstring in public function
+    "D105",  # Missing docstring in magic method
+    "D106",  # Missing docstring in public nested class
+    "D107",  # Missing docstring in __init__
+    "D202",  # No blank lines allowed after function docstring
+    "D203",  # 1 blank line required before class docstring
+    "D213",  # Multi-line docstring summary should start at the second line
+    "D404",  # First word of the docstring should not be This
+    "D406",  # Section name should end with a newline
+    "D407",  # Section name underlining
+    "D411",  # Missing blank line before section
+    "E501",  # line too long
+    "E731",  # do not assign a lambda expression, use a def
+]
+
+[tool.ruff.lint.per-file-ignores]
+"test_*.py" = [
+    "S101",  # Assert in test is fine
+]
