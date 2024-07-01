@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Lint GitHub Action Workflows
         uses: eifinger/actionlint-action@700c0cd819e386c9b7c03171a7f348d94c41fa0a  # v1.4.0
-      - uses: eifinger/setup-rye@e62d8930f186833fcc7b04b9f74549c01450a06b  # v3.0.2
+      - uses: eifinger/setup-rye@7a63de08e2d7838e4025dab04ef2a99f67ad2eaf  # v3.0.3
         with:
           enable-cache: true
           cache-prefix: ${{ matrix.python-version }}
